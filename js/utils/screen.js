@@ -37,3 +37,20 @@ export function getCanvas() {
     document.body.appendChild(d);
     return c;
 }
+function canvasSizing() {
+    var width = window.innerWidth - 5;
+    var height = window.innerHeight - 5;
+    if (width / 16 < height / 9) {
+        height = (width / 16) * 9;
+    }
+    else {
+        width = (height / 9) * 16;
+    }
+    var canvas = getCanvas();
+    if (canvas) {
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+    }
+}
+canvasSizing();
+window.addEventListener("resize", canvasSizing);
