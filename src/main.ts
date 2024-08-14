@@ -12,18 +12,19 @@ import { Player } from "./classes/player.js";
 const plr: Player = new Player();
 
 function canvasSizing() {
-  const viewportWidth = window.innerWidth;
-  const viewportHeight = window.innerHeight;
+  var width = window.innerWidth - 5;
+  var height = window.innerHeight - 5;
 
-  const aspectRatioHeight = (viewportWidth / 16) * 9;
-
-  const elementWidth = Math.min(viewportWidth, aspectRatioHeight * 16);
-  const elementHeight = Math.min(viewportHeight, aspectRatioHeight);
+  var usingWidth = true;
+  if (width / 16 < height / 9) {
+    height = width / 16 * 9;
+  } else {
+    width = height / 9 * 16
+  }
 
   if (canvas) {
-    canvas.style.width = `${elementWidth}px`;
-    canvas.style.height = `${elementHeight}px`;
-    canvas.style.aspectRatio = "16 / 9";
+    container.style.width = `${width}px`;
+    container.style.height = `${height}px`;
   }
 }
 

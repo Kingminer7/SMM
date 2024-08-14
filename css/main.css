@@ -1,10 +1,9 @@
 #CanvasContainer {
-    width: 95%; /* Adjust as needed */
-    height: 95%; /* Adjust as needed */
-    background-color: #fff; /* Optional: Background color of the container */
-    border-radius: 15px; /* Rounded corners */
-    overflow: hidden; /* Ensures the canvas doesn't extend beyond the rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    width: 95%;
+    height: 95%;
+    background-color: #fff;
+    border-radius: 15px;
+    overflow: hidden;
     border: .1vw solid black;
     position: absolute;
     transform: translate(-50%, -50%);

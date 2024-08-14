@@ -35,7 +35,3 @@ export function getCanvas(): HTMLCanvasElement {
   document.body.appendChild(d);
   return c;
 }
-
-setInterval(() => {
-    getCanvas()
-}, 1000/60)

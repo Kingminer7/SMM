@@ -37,6 +37,3 @@ export function getCanvas() {
     document.body.appendChild(d);
     return c;
 }
-setInterval(() => {
-    getCanvas();
-}, 1000 / 60);
