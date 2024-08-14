@@ -1,8 +1,7 @@
-#CanvasContainer {
+#GameCanvas {
     width: 95%;
     height: 95%;
     background-color: #fff;
-    border-radius: 15px;
     overflow: hidden;
     border: .1vw solid black;
     position: absolute;
@@ -13,7 +12,7 @@
     right: 50%;
 }
 
-#GameCanvas {
+#GamesCanvas {
     display: block;
     background-color: #fff;
     width: 100%;
