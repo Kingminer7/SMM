@@ -1,3 +1,4 @@
+import { getEnumKeyByValue } from "./generic";
 var keyDownListeners = [];
 var keyUpListeners = [];
 var currentKeys = [];
@@ -23,6 +24,10 @@ class InputHandlerClass {
     }
 }
 document.body.onkeydown = function (event) {
+    var kc = getEnumKeyByValue(KeyCode, event.keyCode);
+    if (!kc)
+        return;
+    currentKeys.push(kc);
     keyDownListeners.sort(function (a, b) {
         return b.priority - a.priority;
     });
@@ -30,7 +35,23 @@ document.body.onkeydown = function (event) {
     keyDownListeners.forEach((listener) => {
         if (cancelled)
             return;
-        cancelled = listener.callback(event);
+        cancelled = listener.callback(kc, event);
+    });
+};
+document.body.onkeyup = function (event) {
+    var kc = getEnumKeyByValue(KeyCode, event.keyCode);
+    if (!kc)
+        return;
+    if (currentKeys.indexOf(kc))
+        currentKeys.splice(currentKeys.indexOf(kc), 1);
+    keyUpListeners.sort(function (a, b) {
+        return b.priority - a.priority;
+    });
+    var cancelled = false;
+    keyUpListeners.forEach((listener) => {
+        if (cancelled)
+            return;
+        cancelled = listener.callback(kc, event);
     });
 };
 class InputListener {

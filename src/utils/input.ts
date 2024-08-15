@@ -1,10 +1,12 @@
+import { getEnumKeyByValue } from "./generic";
+
 var keyDownListeners: InputListener[] = [];
 var keyUpListeners: InputListener[] = [];
 var currentKeys: KeyCode[] = [];
 
 class InputHandlerClass {
   OnKeyDown = function (
-    callback: (event: KeyboardEvent) => any,
+    callback: (keyCode: KeyCode, event: KeyboardEvent) => any,
     priority: number = 0,
     cancel: boolean = false
   ): InputListener {
@@ -13,7 +15,7 @@ class InputHandlerClass {
     return il;
   };
   OnKeyUp = function (
-    callback: (event: KeyboardEvent) => boolean,
+    callback: (keyCode: KeyCode, event: KeyboardEvent) => boolean,
     priority: number = 0,
     cancel: boolean = false
   ): InputListener {
@@ -29,20 +31,40 @@ class InputHandlerClass {
 }
 
 document.body.onkeydown = function (event: KeyboardEvent) {
+  var kc: KeyCode = getEnumKeyByValue(KeyCode, event.keyCode);
+  if (!kc) return;
+  currentKeys.push(kc);
   keyDownListeners.sort(function (a, b) {
     return b.priority - a.priority;
   });
   var cancelled = false;
   keyDownListeners.forEach((listener) => {
     if (cancelled) return;
-    cancelled = listener.callback(event);
+    cancelled = listener.callback(kc, event);
+  });
+};
+
+document.body.onkeyup = function (event: KeyboardEvent) {
+  var kc: KeyCode = getEnumKeyByValue(KeyCode, event.keyCode);
+  if (!kc) return;
+  if (currentKeys.indexOf(kc)) currentKeys.splice(currentKeys.indexOf(kc), 1);
+  keyUpListeners.sort(function (a, b) {
+    return b.priority - a.priority;
+  });
+  var cancelled = false;
+  keyUpListeners.forEach((listener) => {
+    if (cancelled) return;
+    cancelled = listener.callback(kc, event);
   });
 };
 
 class InputListener {
-  callback: (event: KeyboardEvent) => boolean;
+  callback: (keyCode: KeyCode, event: KeyboardEvent) => boolean;
   priority: number;
-  constructor(callback: (event: KeyboardEvent) => boolean, priority: number) {
+  constructor(
+    callback: (keyCode: KeyCode, event: KeyboardEvent) => boolean,
+    priority: number
+  ) {
     this.callback = callback;
     this.priority = priority;
   }
