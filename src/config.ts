@@ -1,4 +1,4 @@
-import { Vector2 } from "./classes/math";
+import { Vector2 } from "./classes/math.js";
 
 class ConfigClass {
     ticksPerSecond: number = 240;

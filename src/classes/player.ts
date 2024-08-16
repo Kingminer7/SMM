@@ -17,7 +17,7 @@ export class Player {
     var falling: boolean = this.velocity.y < 0
     var mult: number = falling ? 2 : 1
 
-    this.velocity.y += this.gravity * mult * Time.delta
+    this.velocity.y += this.gravity * mult * Time.tickDelta
   }
 }
 

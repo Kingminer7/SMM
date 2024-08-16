@@ -13,7 +13,7 @@ export class Player {
     applyGravity() {
         var falling = this.velocity.y < 0;
         var mult = falling ? 2 : 1;
-        this.velocity.y += this.gravity * mult * Time.delta;
+        this.velocity.y += this.gravity * mult * Time.tickDelta;
     }
 }
 export var PlayerState;

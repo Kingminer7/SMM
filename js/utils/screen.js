@@ -31,10 +31,7 @@ export function getCanvas() {
         return c;
     c = document.createElement("canvas");
     c.id = "GameCanvas";
-    var d = document.createElement("div");
-    d.id = "CanvasContainer";
-    d.appendChild(c);
-    document.body.appendChild(d);
+    document.body.appendChild(c);
     return c;
 }
 function canvasSizing() {
@@ -48,8 +45,8 @@ function canvasSizing() {
     }
     var canvas = getCanvas();
     if (canvas) {
-        canvas.style.width = `${width}px`;
-        canvas.style.height = `${height}px`;
+        canvas.width = width;
+        canvas.height = height;
     }
 }
 canvasSizing();

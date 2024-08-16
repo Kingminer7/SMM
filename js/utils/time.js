@@ -6,8 +6,9 @@ class TimeClass {
         this.dt = 0;
         setInterval(this.tick, 1000 / Config.ticksPerSecond); // 240 tps, should be consistent even with lag
     }
-    get delta() { return this.dt; }
-    ;
+    get tickDelta() {
+        return this.dt;
+    }
     OnTick(callback) {
         tickListeners.push(callback);
     }
@@ -15,7 +16,7 @@ class TimeClass {
         var now = Date.now();
         this.dt = (now - lastUpdate) / Config.ticksPerSecond;
         lastUpdate = now;
-        tickListeners.forEach(listener => {
+        tickListeners.forEach((listener) => {
             listener(this.dt);
         });
     }

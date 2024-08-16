@@ -29,10 +29,7 @@ export function getCanvas(): HTMLCanvasElement {
   if (c instanceof HTMLCanvasElement) return c;
   c = document.createElement("canvas");
   c.id = "GameCanvas";
-  var d: HTMLDivElement = document.createElement("div");
-  d.id = "CanvasContainer";
-  d.appendChild(c);
-  document.body.appendChild(d);
+  document.body.appendChild(c);
   return c;
 }
 
@@ -45,10 +42,10 @@ function canvasSizing() {
   } else {
     width = (height / 9) * 16;
   }
-  var canvas = getCanvas()
+  var canvas = getCanvas();
   if (canvas) {
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
+    canvas.width = width;
+    canvas.height = height;
   }
 }
 
