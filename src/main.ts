@@ -18,5 +18,5 @@ const plr: Player = new Player();
 
 const maro = new RenderedSprite("./res/super%20maro.jpg")
 maro.position = new math.Vector2(50, 50)
-maro.size = new math.Vector2(61, 78.2)
+maro.scale = new math.Vector2(0.15, 0.15)
 Renderer.register(maro);

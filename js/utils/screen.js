@@ -47,6 +47,7 @@ function canvasSizing() {
     if (canvas) {
         canvas.width = width;
         canvas.height = height;
+        console.log(`(${width}, ${height})`);
     }
 }
 canvasSizing();

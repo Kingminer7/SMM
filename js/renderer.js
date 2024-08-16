@@ -42,7 +42,7 @@ class RendererClass {
 export class RenderedObject {
     constructor() {
         /** Runs every frame after object is registered in renderer */
-        this.size = new Vector2(1, 1);
+        this.scale = new Vector2(1, 1);
         this.position = new Vector2(0, 0);
         this.zIndex = 0;
         this.rotation = 0;
@@ -53,10 +53,20 @@ export class RenderedSprite extends RenderedObject {
     constructor(sprite) {
         super();
         this.sprite = new Image();
+        this.size = new Vector2(0, 0);
+        this.rectSize = new Vector2(0, 0);
+        this.rectOffset = new Vector2(0, 0);
         this.sprite.src = sprite;
+        this.size = new Vector2(this.sprite.width, this.sprite.height);
+        this.rectSize = this.size;
     }
     render(canvas, context) {
-        context.drawImage(this.sprite, this.position.x, this.position.y, this.size.x, this.size.y);
+        context.drawImage(this.sprite, 
+        // this.rectOffset.x / Config.renderGrid.x * canvas.width * this.scale.x,
+        // this.rectOffset.y / Config.renderGrid.y * canvas.height * this.scale.y,
+        // this.rectSize.x / Config.renderGrid.x * canvas.width * this.scale.x,
+        // this.rectSize.y / Config.renderGrid.y * canvas.height * this.scale.y,
+        this.rectOffset.x, this.rectOffset.y, this.rectSize.x, this.rectSize.y, this.position.x / Config.renderGrid.x * canvas.width, this.position.y / Config.renderGrid.y * canvas.height, this.size.x / Config.renderGrid.x * canvas.width * this.scale.x, this.size.y / Config.renderGrid.y * canvas.height * this.scale.y);
     }
 }
 export const Renderer = new RendererClass();

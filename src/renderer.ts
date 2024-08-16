@@ -45,7 +45,7 @@ class RendererClass {
 
 export abstract class RenderedObject {
   /** Runs every frame after object is registered in renderer */
-  size: Vector2 = new Vector2(1, 1);
+  scale: Vector2 = new Vector2(1, 1);
   position: Vector2 = new Vector2(0, 0);
   zIndex: number = 0;
   rotation: number = 0;
@@ -58,15 +58,31 @@ export abstract class RenderedObject {
 
 export class RenderedSprite extends RenderedObject {
   sprite: HTMLImageElement = new Image();
+  size: Vector2 = new Vector2(0, 0);
+  rectSize: Vector2 = new Vector2(0, 0);
+  rectOffset: Vector2 = new Vector2(0, 0);
   constructor(sprite: string) {
     super();
     this.sprite.src = sprite;
+    this.size = new Vector2(this.sprite.width, this.sprite.height);
+    this.rectSize = this.size;
   }
   render(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D): void {
-    context.drawImage(this.sprite,
-      this.position.x,
-      this.position.y,
-      this.size.x, this.size.y);
+    context.drawImage(
+      this.sprite,
+      // this.rectOffset.x / Config.renderGrid.x * canvas.width * this.scale.x,
+      // this.rectOffset.y / Config.renderGrid.y * canvas.height * this.scale.y,
+      // this.rectSize.x / Config.renderGrid.x * canvas.width * this.scale.x,
+      // this.rectSize.y / Config.renderGrid.y * canvas.height * this.scale.y,
+      this.rectOffset.x,
+      this.rectOffset.y,
+      this.rectSize.x,
+      this.rectSize.y,
+      this.position.x / Config.renderGrid.x * canvas.width,
+      this.position.y / Config.renderGrid.y * canvas.height,
+      this.size.x / Config.renderGrid.x * canvas.width * this.scale.x,
+      this.size.y / Config.renderGrid.y * canvas.height * this.scale.y,
+    );
   }
 }
 
